@@ -52,7 +52,7 @@
                                                 <button
                                                     onClick={() => {
                                                         addToCart(p)
-                                                        
+
                                                     }}
                                                     className="btn ">aggiungi al carrello</button>
                                             </li >
@@ -61,6 +61,7 @@
                                 })}
                             </ul>
                         </div>
+                        <Cart array={cart} />
                     </div>
 
                 </>
@@ -74,20 +75,16 @@
         const { useState } = React;
 
         const Cart = (array) => {
-            const [cart, setCart] = useState([array])
+            const [cart, setCart] = useState(array)
+
+
+
+
             return (
                 <>
                     <div>
                         <h1>CARRELLO DELLA SPESA</h1>
-                        <ul>
-                            {cart.map((p) => {
-                                return (
-                                    <>
-
-                                    </>
-                                )
-                            })}
-                        </ul>
+                            
                     </div>
 
                 </>
@@ -106,7 +103,7 @@
 
         const element = createRoot(document.querySelector(".products-list"))
         element.render(<ProductsList />)
-        const cartElement = createRoot(document.querySelector(".cart"))
+        const cartElement = createRoot()
         cartElement.render(<Cart />)
 
     </script>
@@ -118,7 +115,7 @@
         <div class="products-list"></div>
 
     </div>
-    <div class="cart"></div>
+
 </body>
 
 </html>
