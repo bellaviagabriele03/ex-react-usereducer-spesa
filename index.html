@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- CDN REACT -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- MOTORE REACT PER MONTAGGIO COMPONENTI -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- CDN BABEL PER LETTURA E SCRITTURE JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- COMPONENTE PER LA LISTA DEI PRODOTTI -->
+    <script type="text/babel">
+        const { useState } = React;
+        const ProductsList = () => {
+
+            const products = [
+                { name: 'Mela', price: 0.5 },
+                { name: 'Pane', price: 1.2 },
+                { name: 'Latte', price: 1.0 },
+                { name: 'Pasta', price: 0.7 },
+            ];
+
+            const [cart, setCart] = useState([])
+
+
+            function addToCart(product) {
+
+                setCart((curr) => [product, ...curr])
+
+
+            }
+            return (
+                <>
+                    <div>
+                        <h2>LISTA DEI PRODOTTI:</h2>
+
+                        <div>
+                            <ul>
+                                {products.map((p, i) => {
+                                    return (
+                                        <>
+                                            <li key={i}>{p.name}
+                                                <span><strong>{p.price} €</strong></span>
+                                                <button
+                                                    onClick={() => {
+                                                        addToCart(p)
+                                                        
+                                                    }}
+                                                    className="btn ">aggiungi al carrello</button>
+                                            </li >
+                                        </>
+                                    )
+                                })}
+                            </ul>
+                        </div>
+                    </div>
+
+                </>
+            )
+        }
+
+    </script>
+    <!-- COMPONENTE DEL CARRELLO -->
+    <script type="text/babel">
+
+        const { useState } = React;
+
+        const Cart = (array) => {
+            const [cart, setCart] = useState([array])
+            return (
+                <>
+                    <div>
+                        <h1>CARRELLO DELLA SPESA</h1>
+                        <ul>
+                            {cart.map((p) => {
+                                return (
+                                    <>
+
+                                    </>
+                                )
+                            })}
+                        </ul>
+                    </div>
+
+                </>
+
+            )
+        }
+    </script>
+
+
+
+
+    <!-- MONTAGGIO DEI COMPONENTI NEL DOM -->
+    <script type="text/babel">
+        const { createRoot } = ReactDOM;
+
+
+        const element = createRoot(document.querySelector(".products-list"))
+        element.render(<ProductsList />)
+        const cartElement = createRoot(document.querySelector(".cart"))
+        cartElement.render(<Cart />)
+
+    </script>
+</head>
+
+<body>
+    <h1 class="title">I NOSTRI PRODOTTI</h1>
+    <div class="container">
+        <div class="products-list"></div>
+
+    </div>
+    <div class="cart"></div>
+</body>
+
+</html>
