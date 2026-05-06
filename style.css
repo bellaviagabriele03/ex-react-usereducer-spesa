@@ -55,3 +55,12 @@ ul {
     text-align: center;
     font-size: 70px;
 }
+
+.remove {
+    background-color: red;
+
+}
+
+.ms-10 {
+    margin-left: 10px;
+}

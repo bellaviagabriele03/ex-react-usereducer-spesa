@@ -36,13 +36,29 @@
                 const isProductAdd = cart.some(p => p.name === product.name)
 
                 if (isProductAdd) {
-                    return;
+                    setCart(curr => curr.map(p =>
+                        p.name === product.name ? { ...p, quantity: p.quantity + 1 } : p
+                    ))
+                } else {
+                    setCart(curr => [...curr, { ...product, quantity: 1 }])
                 }
 
-                setCart(curr => [...curr, { ...product, quantity: 1 }])
+
 
             }
-            console.log(cart);
+
+            function removeToCart(product) {
+                setCart(curr => curr.filter(p => p.name !== product.name))
+            }
+
+            function totalPrice() {
+
+                return cart.reduce((total, product) => {
+                    return total + (product.price * product.quantity)
+                }, 0)
+            }
+
+
 
             return (
                 <>
@@ -55,11 +71,9 @@
                                         <li key={i}>
                                             {p.name}
 
-                                            <span><strong>{p.price} €</strong></span>
+                                            <span className="ms-10"><strong>{p.price.toFixed(2)} €</strong></span>
                                             <button
-                                                onClick={() => {
-                                                    addToCart(p)
-                                                }}
+                                                onClick={() => { addToCart(p) }}
                                                 className="btn ">aggiungi al carrello</button>
                                         </li >
 
@@ -73,14 +87,19 @@
                             {cart.length > 0 && (<>
                                 <ul>
                                     {cart.map((p, i) => (
-                                        <li>
-                                            {p.quantity} X {p.name}
-                                        </li>
+                                        <>
+                                            <li key={i}>
+                                                {p.quantity} X {p.name}
+                                            </li>
+                                            <button
+                                                onClick={() => { removeToCart(p) }}
+                                                className="btn remove">Rimuovi dal carrello</button>
+                                        </>
+
                                     ))}
                                 </ul>
-                            </>)
-
-                            }
+                                <span>Totale: {totalPrice().toFixed(2)} €</span>
+                            </>)}
 
                         </div>
                     </div>
